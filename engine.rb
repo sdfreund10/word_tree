@@ -28,10 +28,6 @@ class Path
     current_level.nodes.select { |node| node.children.include?(@final) }.map(&:path_to_top)
   end
 
-  def depth_first_search
-    word_tree = Tree.new
-  end
-
   def reset_possible_words
     same_length_words - [@original]
   end
