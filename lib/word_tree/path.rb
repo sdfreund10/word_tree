@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class Path
+class WordTree::Path
   class NoPathError < RuntimeError; end
 
   def initialize(start_word, end_word)
-    unless EnglishWords.include?(start_word) && EnglishWords.include?(end_word)
+    unless WordTree::EnglishWords.include?(start_word) &&
+           WordTree::EnglishWords.include?(end_word)
       raise ArgumentError,
             "Please provide valid english words (#{start_word}, #{end_word})"
     end
@@ -19,7 +20,7 @@ class Path
   end
 
   def same_length_words
-    EnglishWords.with_length(@start_word.length)
+    WordTree::EnglishWords.with_length(@start_word.length)
   end
 
   def full_tree
@@ -47,10 +48,11 @@ class Path
     until complete?
       next_level = []
       @levels.last.each do |word|
-        next_level += Word.new(word).find_children_from(options)
+        word_matches = WordTree::Word.new(word).find_children_from(options)
+        next_level += word_matches
+        options -= word_matches
       end
 
-      options -= next_level
       @levels << next_level
 
       raise NoPathError if dead_end?
@@ -72,7 +74,7 @@ class Path
   def trim_above_level(words, index)
     return [] if index.zero?
     @levels[index - 1].reject! do |word|
-      Word.new(word).find_children_from(words).empty?
+      WordTree::Word.new(word).find_children_from(words).empty?
     end
   end
 end

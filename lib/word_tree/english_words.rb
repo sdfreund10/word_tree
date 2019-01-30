@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EnglishWords
+class WordTree::EnglishWords
   def self.with_length(n)
     grouped_by_length.fetch(n, [])
   end
