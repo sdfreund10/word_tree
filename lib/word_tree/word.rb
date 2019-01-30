@@ -14,7 +14,7 @@ module WordTree
     def one_char_from?(word)
       diff_count = 0
       value_chars.each_with_index do |letter, index|
-        diff_count += 1 if letter != word[index]
+        diff_count += 1 if letter != word.value_chars[index]
         return false if diff_count > 1
       end
 
@@ -22,7 +22,7 @@ module WordTree
     end
 
     def anagram_of?(word)
-      word.chars.sort == value_chars_sorted
+      word.value_chars_sorted == value_chars_sorted
     end
 
     def find_children_from(options)
@@ -30,8 +30,6 @@ module WordTree
         anagram_of?(word) || one_char_from?(word)
       end
     end
-
-    private
 
     def value_chars
       @value_chars ||= value.chars

@@ -18,30 +18,30 @@ module WordTree
 
     def test_one_char_from_calculates_returns_true_if_distance_less_than_2
       word = Word.new('test')
-      assert(word.one_char_from?('test'))
-      assert(word.one_char_from?('tost'))
+      assert(word.one_char_from?(Word.new 'test'))
+      assert(word.one_char_from?(Word.new 'tost'))
     end
 
     def test_one_char_from_calculates_returns_false_if_distance_more_than_2
       word = Word.new('test')
-      assert(!word.one_char_from?('took'))
+      assert(!word.one_char_from?(Word.new 'took'))
     end
 
     def test_anagram_of_returns_true_if_word_has_same_letters
       word = Word.new('test')
-      assert(word.anagram_of?('sett'))
+      assert(word.anagram_of?(Word.new 'sett'))
     end
 
     def test_anagram_of_returns_false_if_different_letters
       word = Word.new('test')
-      assert(!word.anagram_of?('tast'))
+      assert(!word.anagram_of?(Word.new 'tast'))
     end
 
     def test_find_children_of_selects_words_one_letter_from_and_anagrams
       word = Word.new('test')
-      options = %w[tast task sett]
+      options = %w[tast task sett].map { |word| Word.new(word) }
       expected = %w[sett tast]
-      assert_equal(word.find_children_from(options).sort, expected.sort)
+      assert_equal(word.find_children_from(options).map(&:value).sort, expected.sort)
     end
   end
 end

@@ -23,7 +23,7 @@ module WordTree
     end
 
     def complete?
-      @levels.last.include? @end_word
+      @levels.last.map(&:value).include? @end_word
     end
 
     def dead_end?
@@ -33,13 +33,13 @@ module WordTree
     private
 
     def compute_full_tree
-      @levels = [[@start_word]]
-      options = same_length_words
+      @levels = [[Word.new(@start_word)]]
+      options = same_length_words.map { |word| Word.new(word) }
 
       until complete?
         next_level = []
         @levels.last.each do |word|
-          word_matches = WordTree::Word.new(word).find_children_from(options)
+          word_matches = word.find_children_from(options)
           next_level += word_matches
           options -= word_matches
         end
@@ -54,18 +54,18 @@ module WordTree
     def trim_levels
       @trimmed_tree = (@levels || compute_full_tree).dup
 
-      @trimmed_tree[-1] = [@end_word]
+      @trimmed_tree[-1] = [Word.new(@end_word)].map
       @trimmed_tree.to_enum.with_index.reverse_each do |level, index|
         trim_above_level(level, index)
       end
-      @trimmed_tree
+      @trimmed_tree.map! { |level| level.map(&:value) }
     end
 
     def trim_above_level(words, index)
       return [] if index.zero?
 
       @levels[index - 1].reject! do |word|
-        WordTree::Word.new(word).find_children_from(words).empty?
+        word.find_children_from(words).empty?
       end
     end
 

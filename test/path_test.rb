@@ -30,19 +30,19 @@ module WordTree
       path = Path.new('cry', 'fly')
       full_tree = path.full_tree
       assert_equal(full_tree.length, 3)
-      assert((%w[cly fry] - full_tree[1]).empty?)
+      assert((%w[cly fry] - full_tree[1].map(&:value)).empty?)
     end
 
     def test_full_tree_starts_with_start_word
       path = Path.new('cry', 'fly')
       full_tree = path.full_tree
-      assert_equal(full_tree.first, ['cry'])
+      assert_equal(full_tree.first.map(&:value), ['cry'])
     end
 
     def test_full_tree_ends_with_end_word
       path = Path.new('cry', 'fly')
       full_tree = path.full_tree
-      assert(full_tree.last.include?('fly'))
+      assert(full_tree.last.map(&:value).include?('fly'))
     end
 
     def test_trim_tree_returns_only_words_on_immediate_path
