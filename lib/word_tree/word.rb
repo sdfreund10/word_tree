@@ -2,13 +2,15 @@
 
 module WordTree
   class Word
-    attr_reader :value
+    attr_reader :value, :value_chars, :value_chars_sorted
     def initialize(word)
       unless word.is_a? String
         raise ArgumentError, "Word value must be a string (#{word})"
       end
 
       @value = word
+      @value_chars = value.chars
+      @value_chars_sorted = @value_chars.sort
     end
 
     def one_char_from?(word)
@@ -29,14 +31,6 @@ module WordTree
       options.select do |word|
         anagram_of?(word) || one_char_from?(word)
       end
-    end
-
-    def value_chars
-      @value_chars ||= value.chars
-    end
-
-    def value_chars_sorted
-      @value_chars_sorted ||= value_chars.sort
     end
   end
 end

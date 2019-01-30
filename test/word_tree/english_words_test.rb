@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require_relative '../lib/word_tree'
+require_relative '../../lib/word_tree'
 
 module WordTree
   class EnglishWordsTest < Test::Unit::TestCase

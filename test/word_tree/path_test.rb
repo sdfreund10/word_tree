@@ -3,7 +3,7 @@
 # frozen_sting_literal: true
 
 require 'test/unit'
-require_relative '../lib/word_tree'
+require_relative '../../lib/word_tree'
 
 module WordTree
   class PathTest < Test::Unit::TestCase
