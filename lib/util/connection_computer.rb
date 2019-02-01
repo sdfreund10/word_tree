@@ -2,7 +2,6 @@
 
 require_relative '../word_tree/word'
 require 'set'
-require 'pry'
 
 class ConnectionComputer
   def initialize(words)
