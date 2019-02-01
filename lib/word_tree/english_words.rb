@@ -15,7 +15,7 @@ module WordTree
     end
 
     def self.words
-      words_path = File.expand_path(__dir__) + '/english_words.txt'
+      words_path = File.expand_path(__dir__) + '/../util/english_words.txt'
       File.read(words_path).split
     end
   end
