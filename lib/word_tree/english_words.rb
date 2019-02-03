@@ -11,7 +11,7 @@ module WordTree
     end
 
     def self.grouped_by_length
-      @grouped_by_length ||= words.group_by(&:length)
+      words.group_by(&:length)
     end
 
     def self.words
