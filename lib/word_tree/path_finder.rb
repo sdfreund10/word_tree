@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 module WordTree
   class PathFinder
     class NoPathError < RuntimeError; end
@@ -20,7 +18,7 @@ module WordTree
       tree = full_tree
       all_paths = [[Word.new(@end_word)]]
 
-      tree[0..-2].reverse.each do |level|
+      tree[0..-2].reverse_each do |level|
         all_paths = all_paths.inject([]) do |new_paths, path|
           last_word = path.last
           connections = last_word.find_children_from(level)
@@ -35,7 +33,7 @@ module WordTree
       levels = [[Word.new(@start_word)]]
       options = same_length_words.map! { |word| Word.new(word) }
 
-      until levels.last.map(&:value).include? @end_word 
+      until levels.last.map(&:value).include? @end_word
         next_level = []
         levels.last.each do |word|
           word_matches = word.find_children_from(options)
@@ -44,14 +42,15 @@ module WordTree
         end
 
         levels << next_level
-        raise NoPathError if levels.last.empty? 
+        raise NoPathError if levels.last.empty?
       end
 
       levels
     end
 
     def validate_words
-      unless WordTree::EnglishWords.include?(@start_word) &&
+      unless @start_word && @end_word &&
+             WordTree::EnglishWords.include?(@start_word) &&
              WordTree::EnglishWords.include?(@end_word)
         raise ArgumentError,
               "Please provide valid english words (#{@start_word}, #{@end_word})"

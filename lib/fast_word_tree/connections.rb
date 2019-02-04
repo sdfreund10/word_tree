@@ -5,7 +5,7 @@ module FastWordTree
     def connections_for_words_with_lenth(length)
       connection_hash = Hash.new []
       File.foreach(connection_file) do |line|
-        word, *connections = line.strip.split(",")
+        word, *connections = line.strip.split(',')
         next unless word.length == length
 
         connection_hash[word] = connections

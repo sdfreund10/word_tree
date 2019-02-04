@@ -5,4 +5,3 @@ module WordTree
   require_relative './word_tree/word'
   require_relative './word_tree/path_finder'
 end
-

@@ -11,7 +11,7 @@ class ConnectionComputer
   def connections
     connection_hash = Hash.new([])
 
-    while word = @words.shift
+    while (word = @words.shift)
       word_connections = word.find_children_from(@words)
       connection_hash[word.value] |= word_connections.map(&:value)
       word_connections.each do |connection|
@@ -47,7 +47,7 @@ class ConnectionComputer
   end
 
   def self.output_file
-    @@output_file ||= File.open(__dir__ + '/all_connections.txt', 'w')
+    @output_file ||= File.open(__dir__ + '/all_connections.txt', 'w')
   end
 
   def self.file_data
