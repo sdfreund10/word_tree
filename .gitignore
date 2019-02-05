@@ -1,0 +1,4 @@
+word_tree_dump.sql.gz
+word_tree_dump.sql
+lib/util/*
+!lib/util/.keep
