@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'optparse'
 require 'net/http'
@@ -10,23 +11,23 @@ db_name = nil
 force = false
 
 OptionParser.new do |parser|
-  parser.on('-dDBNAME', '--database=DBNAME', "Postgresql database to store connections (optional)") do |db|
+  parser.on('-dDBNAME', '--database=DBNAME', 'Postgresql database to store connections (optional)') do |db|
     db_name = db
   end
 
-  parser.on('-f', '--force', "Force import of word/connection data to database") do |f|
+  parser.on('-f', '--force', 'Force import of word/connection data to database') do |f|
     force = f
   end
 end.parse!
 
 if db_name
-  puts "Downloading word_tree_dump.sql.gz" 
+  puts 'Downloading word_tree_dump.sql.gz'
   url = URI(
-    "https://raw.githubusercontent.com/sdfreund10/word_list/master/word_tree_dump.sql.gz"
+    'https://raw.githubusercontent.com/sdfreund10/word_list/master/word_tree_dump.sql.gz'
   )
-  File.open("word_tree_dump.sql.gz", "w") { |file| file.write(Net::HTTP.get(url)) }
-  File.open("word_tree_dump.sql", "w") do |file|
-    Zlib::GzipReader.open("word_tree_dump.sql.gz").each_line do |line|
+  File.open('word_tree_dump.sql.gz', 'w') { |file| file.write(Net::HTTP.get(url)) }
+  File.open('word_tree_dump.sql', 'w') do |file|
+    Zlib::GzipReader.open('word_tree_dump.sql.gz').each_line do |line|
       file.write(line)
     end
   end
@@ -41,40 +42,39 @@ if db_name
 
   SQL
   conn.close
-  if result[0]["exists"] == "t"
+  if result[0]['exists'] == 't'
     puts "\nWARNING: Schema 'word_tree' already exists in database #{db_name}"
     print "Importing word_tree dump could result in duplicate data\n\n"
-    
+
     unless force
-      puts "If you are sure you want to import data, include --force"
-      puts "Canceling word_tree import"
-      FileUtils.rm("word_tree_dump.sql")
-      FileUtils.rm("word_tree_dump.sql.gz")
+      puts 'If you are sure you want to import data, include --force'
+      puts 'Canceling word_tree import'
+      FileUtils.rm('word_tree_dump.sql')
+      FileUtils.rm('word_tree_dump.sql.gz')
       exit 1
     end
   end
 
-  puts "Applying data to the database"
+  puts 'Applying data to the database'
   `psql #{db_name} -f word_tree_dump.sql`
 
-  FileUtils.rm("word_tree_dump.sql")
-  FileUtils.rm("word_tree_dump.sql.gz")
+  FileUtils.rm('word_tree_dump.sql')
+  FileUtils.rm('word_tree_dump.sql.gz')
 
-  puts("Success!",
-       "Find the words and connection data in word_tree.words and word_tree.connections tables")
+  puts('Success!',
+       'Find the words and connection data in word_tree.words and word_tree.connections tables')
 else
-  %w(all_connections.txt english_words.txt).each do |file_name|
+  %w[all_connections.txt english_words.txt].each do |file_name|
     file_location = __dir__ + "/../lib/util/#{file_name}"
-    puts "Downloading #{file_name}"  
-    File.open(file_location, "w") do |file|
+    puts "Downloading #{file_name}"
+    File.open(file_location, 'w') do |file|
       url = URI(
         "https://raw.githubusercontent.com/sdfreund10/word_list/master/#{file_name}"
       )
-  
+
       file.write(Net::HTTP.get(url))
     end
-  
+
     puts "File placed in lib/util/#{file_name}"
   end
 end
-
