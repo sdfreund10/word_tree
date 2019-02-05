@@ -21,7 +21,6 @@ module FastWordTree
         @paths = @paths.inject([]) do |summary, path|
           last_word = path.last
           last_word_connections = connection_hash[last_word]
-
           last_level_matches += last_word_connections
           summary + last_word_connections.map { |word| [*path, word] }
         end

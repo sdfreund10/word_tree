@@ -21,5 +21,21 @@ module WordTree
     def test_include_returns_false_for_invalid_english_word
       assert_equal false, EnglishWords.include?('asdfg')
     end
+
+    def test_words_with_length_works_with_database
+      WordTree.configure { |config| config.database = 'word_tree' }
+      assert(EnglishWords.with_length(3).all? { |word| word.length == 3 })
+      assert_equal([], EnglishWords.with_length(0))
+    ensure
+      WordTree.configure { |config| config.database = nil }
+    end
+
+    def test_include_works_with_database
+      WordTree.configure { |config| config.database = 'word_tree' }
+      assert(EnglishWords.include?('hello'))
+      assert_equal false, EnglishWords.include?('asdfg')
+    ensure
+      WordTree.configure { |config| config.database = nil }
+    end
   end
 end

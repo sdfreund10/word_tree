@@ -13,7 +13,15 @@ class ConnectionsTest < Test::Unit::TestCase
   end
 
   def test_connections_for_words_with_length_4_should_have_connections_as_value
-    assert_equal(TEST_OBJECT["ruby"].sort, ["bury", "rube", "rubs", "rudy", "ruly"])
+    assert_equal(TEST_OBJECT['ruby'].sort, %w[bury rube rubs rudy ruly])
+  end
+
+  def test_connection_for_words_with_length_works_with_database
+    FastWordTree.configure { |config| config.database = 'word_tree' }
+    object = Class.new { include FastWordTree::Connections }.new
+    test_object = object.connections_for_words_with_lenth(4)
+    assert_equal(test_object['ruby'].sort, %w[bury rube rubs rudy ruly])
+  ensure
+    FastWordTree.configure { |config| config.database = nil }
   end
 end
-

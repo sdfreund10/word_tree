@@ -18,23 +18,23 @@ module WordTree
 
     def test_one_char_from_calculates_returns_true_if_distance_less_than_2
       word = Word.new('test')
-      assert(word.one_char_from?(Word.new 'test'))
-      assert(word.one_char_from?(Word.new 'tost'))
+      assert(word.one_char_from?(Word.new('test')))
+      assert(word.one_char_from?(Word.new('tost')))
     end
 
     def test_one_char_from_calculates_returns_false_if_distance_more_than_2
       word = Word.new('test')
-      assert(!word.one_char_from?(Word.new 'took'))
+      assert(!word.one_char_from?(Word.new('took')))
     end
 
     def test_anagram_of_returns_true_if_word_has_same_letters
       word = Word.new('test')
-      assert(word.anagram_of?(Word.new 'sett'))
+      assert(word.anagram_of?(Word.new('sett')))
     end
 
     def test_anagram_of_returns_false_if_different_letters
       word = Word.new('test')
-      assert(!word.anagram_of?(Word.new 'tast'))
+      assert(!word.anagram_of?(Word.new('tast')))
     end
 
     def test_find_children_of_selects_words_one_letter_from_and_anagrams
