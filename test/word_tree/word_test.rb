@@ -2,18 +2,18 @@
 
 # frozen_sting_literal: true
 
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/word_tree'
 
 module WordTree
-  class WordTest < Test::Unit::TestCase
+  class WordTest < MiniTest::Test
     def test_sets_value
       test_word = Word.new('test')
       assert_equal(test_word.value, 'test')
     end
 
     def test_raises_error_if_initialized_with_non_string
-      assert_raise(ArgumentError) { Word.new(nil) }
+      assert_raises(ArgumentError) { Word.new(nil) }
     end
 
     def test_one_char_from_calculates_returns_true_if_distance_less_than_2

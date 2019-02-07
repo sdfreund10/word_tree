@@ -2,21 +2,21 @@
 
 # frozen_sting_literal: true
 
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/word_tree'
 
 module WordTree
-  class PathFinderTest < Test::Unit::TestCase
+  class PathFinderTest < MiniTest::Test
     def test_initialize_raises_error_if_provided_different_length_words
-      assert_raise(ArgumentError) { PathFinder.new('one', 'three') }
+      assert_raises(ArgumentError) { PathFinder.new('one', 'three') }
     end
 
     def test_initialize_raises_error_if_invalid_start_word
-      assert_raise(ArgumentError) { PathFinder.new('asdfae', 'tested') }
+      assert_raises(ArgumentError) { PathFinder.new('asdfae', 'tested') }
     end
 
     def test_initialize_raises_error_if_invalide_end_word
-      assert_raise(ArgumentError) { PathFinder.new('tested', 'gykacd') }
+      assert_raises(ArgumentError) { PathFinder.new('tested', 'gykacd') }
     end
 
     def test_same_length_words_returns_all_words_with_length_of_start_word

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/word_tree'
 
 module WordTree
-  class EnglishWordsTest < Test::Unit::TestCase
+  class EnglishWordsTest < MiniTest::Test
     def test_words_with_lenth_returns_english_words_with_given_length
       words = EnglishWords.with_length(3)
       assert(words.all? { |word| word.length == 3 })

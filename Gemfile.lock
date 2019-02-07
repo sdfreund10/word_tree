@@ -1,19 +1,17 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    minitest (5.11.3)
     pg (1.1.4)
-    power_assert (1.1.3)
     rake (12.3.2)
-    test-unit (3.2.9)
-      power_assert
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
   pg
   rake
-  test-unit
 
 BUNDLED WITH
    1.17.2

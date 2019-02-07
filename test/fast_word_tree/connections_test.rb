@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/fast_word_tree'
 
-class ConnectionsTest < Test::Unit::TestCase
+class ConnectionsTest < MiniTest::Test
   # can take a while, so do it once at the beginining of suite
   DUMMY_CLASS = Class.new { include FastWordTree::Connections }.freeze
   TEST_OBJECT = DUMMY_CLASS.new.connections_for_words_with_lenth(4).freeze

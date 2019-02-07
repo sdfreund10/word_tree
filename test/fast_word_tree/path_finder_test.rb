@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/fast_word_tree'
 
 module FastWordTree
-  class PathFinderTest < Test::Unit::TestCase
+  class PathFinderTest < MiniTest::Test
     def test_options_hash_selects_connection_hash_for_words_with_same_length
       path = PathFinder.new('ruby', 'roll')
       assert(path.option_hash.keys.all? { |word| word.length == 4 })
